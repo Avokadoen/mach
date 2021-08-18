@@ -329,6 +329,11 @@ pub inline fn setIcon(self: Window, allocator: *mem.Allocator, images: ?[]Image)
     try getError();
 }
 
+pub const FramebufferSizefn = ?fn(?*c.GLFWwindow, c_int, c_int) callconv(.C) void;
+pub inline fn setFramebufferSizeCallback(self: Window, callback_fn: FramebufferSizefn) FramebufferSizefn {
+    return c.glfwSetFramebufferSizeCallback(self.handle, callback_fn);
+}
+
 const Pos = struct {
     x: usize,
     y: usize,

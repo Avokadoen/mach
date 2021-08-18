@@ -2,6 +2,7 @@ const std = @import("std");
 const testing = std.testing;
 
 const c = @import("c.zig").c;
+
 pub const RawWindow = c.GLFWwindow;
 
 pub usingnamespace @import("consts.zig");
@@ -104,6 +105,11 @@ pub inline fn initHint(hint: c_int, value: c_int) Error!void {
 
 pub inline fn pollEvents() Error!void {
     c.glfwPollEvents();
+    try getError();
+}
+
+pub inline fn waitEvents() Error!void {
+    c.glfwWaitEvents();
     try getError();
 }
 
