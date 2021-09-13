@@ -136,7 +136,7 @@ pub inline fn getVersionString() [*c]const u8 {
 }
 
 pub inline fn vulkanSupported() bool {
-    return c.glfwVulkanSupported() == @"true";
+    return c.glfwVulkanSupported() == c.GLFW_TRUE;
 }
 
 pub fn basicTest() !void {

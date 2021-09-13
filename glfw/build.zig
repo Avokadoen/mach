@@ -8,7 +8,7 @@ pub fn build(b: *Builder) void {
     var main_tests = b.addTest("src/main.zig");
     main_tests.setBuildMode(mode);
     main_tests.setTarget(target);
-    link(b, main_tests, .{});
+    linkStaticLibrary(b, main_tests, .{});
 
     const test_step = b.step("test", "Run library tests");
     test_step.dependOn(&main_tests.step);
@@ -39,8 +39,8 @@ pub const Options = struct {
 /// Extend a library by statically linking glfw with it
 pub fn linkStaticLibrary(b: *Builder, other_lib: *std.build.LibExeObjStep, options: Options) void {
     const engine_lib = b.addStaticLibrary("engine", "src/main.zig");
-    engine_lib.setBuildMode(step.build_mode);
-    engine_lib.setTarget(step.target);
+    engine_lib.setBuildMode(other_lib.build_mode);
+    engine_lib.setTarget(other_lib.target);
 
     linkStep(b, engine_lib, options);
     linkGLFW(b, engine_lib, options);
