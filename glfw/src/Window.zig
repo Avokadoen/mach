@@ -329,9 +329,14 @@ pub inline fn setIcon(self: Window, allocator: *mem.Allocator, images: ?[]Image)
     try getError();
 }
 
-pub const FramebufferSizefn = ?fn(?*c.GLFWwindow, c_int, c_int) callconv(.C) void;
-pub inline fn setFramebufferSizeCallback(self: Window, callback_fn: FramebufferSizefn) FramebufferSizefn {
+pub const FramebufferSizefn = fn(?*c.GLFWwindow, c_int, c_int) callconv(.C) void;
+pub inline fn setFramebufferSizeCallback(self: Window, callback_fn: ?FramebufferSizefn) ?FramebufferSizefn {
     return c.glfwSetFramebufferSizeCallback(self.handle, callback_fn);
+}
+
+pub const KeyFn = fn(?*c.GLFWwindow, key: c_int, scan_code: c_int, action: c_int, mods: c_int) callconv(.C) void;
+pub inline fn setKeyCallback(self: Window, callback_fn: ?KeyFn) ?KeyFn {
+    return c.glfwSetKeyCallback(self.handle, callback_fn);
 }
 
 const Pos = struct {
