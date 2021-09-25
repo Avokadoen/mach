@@ -339,6 +339,11 @@ pub inline fn setKeyCallback(self: Window, callback_fn: ?KeyFn) ?KeyFn {
     return c.glfwSetKeyCallback(self.handle, callback_fn);
 }
 
+pub const MouseButtonFn = fn(?*c.GLFWwindow, button: c_int, action: c_int, mods: c_int) callconv(.C) void;
+pub inline fn setMouseButtonCallback(self: Window, callback_fn: ?MouseButtonFn) ?MouseButtonFn {
+    return c.glfwSetMouseButtonCallback(self.handle, callback_fn);
+}
+
 const Pos = struct {
     x: usize,
     y: usize,
