@@ -344,6 +344,11 @@ pub inline fn setMouseButtonCallback(self: Window, callback_fn: ?MouseButtonFn) 
     return c.glfwSetMouseButtonCallback(self.handle, callback_fn);
 }
 
+pub const CursorFn = fn(?*c.GLFWwindow, x_pos: f64, y_pos: f64) callconv(.C) void;
+pub inline fn setCursorPosCallback(self: Window, callback_fn: ?CursorFn) ?CursorFn {
+    return c.glfwSetCursorPosCallback(self.handle, callback_fn);
+}
+
 const Pos = struct {
     x: usize,
     y: usize,
