@@ -349,6 +349,19 @@ pub inline fn setCursorPosCallback(self: Window, callback_fn: ?CursorFn) ?Cursor
     return c.glfwSetCursorPosCallback(self.handle, callback_fn);
 }
 
+pub const InputMode = enum(c_int) {
+    cursor = c.GLFW_CURSOR,
+    sticky_keys = c.GLFW_STICKY_KEYS, 
+    sticky_mouse_buttons = c.GLFW_STICKY_MOUSE_BUTTONS, 
+    lock_key_mods = c.GLFW_LOCK_KEY_MODS, 
+    raw_mouse_motion = c.GLFW_RAW_MOUSE_MOTION,
+};
+
+pub inline fn setInputMode(self: Window, mode: InputMode, value: c_int) !void {
+    c.glfwSetInputMode(self.handle, @enumToInt(mode), value);
+    try getError();
+}
+
 const Pos = struct {
     x: usize,
     y: usize,
